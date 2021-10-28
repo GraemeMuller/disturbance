@@ -119,7 +119,7 @@ from disturbance.components.approvals.models import Approval, ApiarySiteOnApprov
 from disturbance.components.approvals.serializers import ApprovalLogEntrySerializer
 from disturbance.components.compliances.models import Compliance
 
-from disturbance.helpers import is_customer, is_internal, is_das_apiary_admin
+from disturbance.helpers import is_authorised_to_modify, is_customer, is_internal, is_das_apiary_admin
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from rest_framework.pagination import PageNumberPagination
@@ -1969,6 +1969,10 @@ class ProposalViewSet(viewsets.ModelViewSet):
     def draft(self, request, *args, **kwargs):
         try:
             instance = self.get_object()
+
+            # Ensure the current user is a member of the organisation that created the draft application.
+            is_authorised_to_modify(request, instance)
+
             save_proponent_data(instance, request, self)
             return redirect(reverse('external'))
         except serializers.ValidationError:
