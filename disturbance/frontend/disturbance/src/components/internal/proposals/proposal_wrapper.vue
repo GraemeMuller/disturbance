@@ -13,6 +13,9 @@
         <div v-else-if="temporaryUseApplication">
             <ProposalTemporaryUse :proposalId="proposalId" />
         </div>
+        <div v-else-if="proposalCompare">
+            <ProposalCompare :proposalId="proposalId"/>
+        </div>
         <div v-else>
             <Proposal :proposalId="proposalId"/>
         </div>
@@ -31,6 +34,7 @@ import ReturnDashTable from '@common-components/returns_dashboard.vue'
 //import ApiaryReferral from './apiary_referral.vue';
 import ProposalApiary from './proposal_apiary.vue';
 import ProposalTemporaryUse from '@/components/internal/proposals/proposal_temporary_use.vue'
+import ProposalCompare from './proposal_compare.vue';
 import Proposal from './proposal.vue';
 import Vue from 'vue';
 import {
@@ -62,6 +66,7 @@ export default {
         ReturnDashTable,
         */
         Proposal,
+        ProposalCompare,
         ProposalApiary,
         ProposalTemporaryUse,
     },
@@ -78,6 +83,13 @@ export default {
         temporaryUseApplication: function() {
             let retVal = false;
             if (this.applicationTypeName === 'Temporary Use'){
+                retVal = true;
+            }
+            return retVal;
+        },
+        proposalCompare: function() {
+            let retVal = false;
+            if (this.applicationTypeName === 'Proposal Compare'){
                 retVal = true;
             }
             return retVal;
@@ -107,7 +119,6 @@ export default {
     beforeRouteEnter: function(to, from, next) {
           Vue.http.get(`/api/proposal/${to.params.proposal_id}/internal_proposal_wrapper.json`).then(res => {
               next(vm => {
-                  console.log(res.body)
                   vm.proposalId = res.body.id;
                   vm.applicationTypeName = res.body.application_type_name;
                   /*

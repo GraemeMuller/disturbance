@@ -4,6 +4,7 @@ import OrgAccessTable from '../organisations/dashboard.vue'
 import OrgAccess from '../organisations/access.vue'
 import Organisation from '../organisations/manage.vue'
 //import Proposal from '../proposals/proposal.vue'
+import ProposalCompare from '../proposals/proposal_compare.vue'
 //import ProposalApiary from '../proposals/proposal_apiary.vue'
 import Proposal from '../proposals/proposal_wrapper.vue';
 //import Referral from '../referrals/referral.vue'
@@ -137,13 +138,39 @@ export default
                         */
                     ]
                 },
-
             ]
         },
-        /*{
-            path: 'proposal',
-            component: Proposal,
-            name:"new_proposal"
-        }*/
+
+
+        {
+            path: 'proposal_compare',
+            component: {
+                render(c)
+                {
+                    return c('router-view')
+                }
+            },
+            children: [
+                {
+                    path: ':proposal_id',
+                    component: {
+                        render(c)
+                        {
+                            return c('router-view')
+                        }
+                    },
+                    children: [
+                        {
+                            path: '/',
+                            component: ProposalCompare,
+                            name:"internal-proposal"
+                        },
+                    ]
+                },
+            ]
+        },
+
+
+
     ]
 }

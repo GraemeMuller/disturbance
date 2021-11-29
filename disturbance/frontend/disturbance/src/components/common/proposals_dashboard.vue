@@ -400,7 +400,8 @@ export default {
                         let links = '';
                         if (!vm.is_external){
                             if(full.assessor_process){
-                                links +=  `<a href='/internal/proposal/${full.id}'>Process</a><br/>`;
+                                links +=  `<a href='/internal/proposal/${full.id}'>Process</a>&nbsp; &nbsp;`;
+                                links +=  `<a href='/internal/proposal_compare/${full.id}'>Compare & Process</a><br/>`;
                             } else {
                                 links +=  `<a href='/internal/proposal/${full.id}'>View</a><br/>`;
                             }

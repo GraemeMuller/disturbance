@@ -88,6 +88,7 @@ class WaCoast(models.Model):
 @python_2_unicode_compatible
 class ApplicationType(models.Model):
     DISTURBANCE = 'Disturbance'
+    PROPOSAL_COMPARE = 'Proposal Compare'
     POWERLINE_MAINTENANCE = 'Powerline Maintenance'
     APIARY = 'Apiary'
     TEMPORARY_USE = 'Temporary Use'
@@ -96,6 +97,7 @@ class ApplicationType(models.Model):
 
     APPLICATION_TYPES = (
         (DISTURBANCE, 'Disturbance'),
+        (PROPOSAL_COMPARE, 'Proposal Compare'),
         (POWERLINE_MAINTENANCE, 'Powerline Maintenance'),
         (APIARY, 'Apiary'),
         (TEMPORARY_USE, 'Temporary Use'),
